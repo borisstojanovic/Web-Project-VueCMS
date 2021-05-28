@@ -14,6 +14,9 @@
             <li class="nav-item">
                 <router-link to="/categories" tag="a" class="nav-link" :class="{active: this.$router.currentRoute.name === 'Categories'}">Categories</router-link>
             </li>
+            <li class="nav-item">
+                <router-link to="/allNews" tag="a" class="nav-link" :class="{active: this.$router.currentRoute.name === 'NewsForCategory'}">News</router-link>
+            </li>
           </ul>
             <div v-if="isUser" class="d-flex">
                 <router-link to="/" tag="a" class="nav-link" v-text="getUser.firstName  + ' ' + getUser.lastName"></router-link>

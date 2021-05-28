@@ -73,9 +73,7 @@ export default {
         deleteCategory(){
             this.$axios.delete("/api/categories/" + this.selectedCategory.id).then(response => {
                 console.log(response);
-                this.$axios.get('/api/categories').then((response) => {
-                    this.categories = response.data;
-                });
+                this.fetchCategories();
             }).catch(err => {
                 alert(err.response.data.message)
             })
@@ -93,7 +91,10 @@ export default {
             });
         },
         findNews() {
-            alert(this.selectedCategory)
+            this.$router.push({
+                name: "NewsForCategory",
+                params: { categoryId: this.selectedCategory.id }
+            });
         },
         addCategory(){
             this.$router.push({name: "addCategory"});

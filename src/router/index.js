@@ -24,6 +24,30 @@ const routes = [
     }
   },
   {
+    path: '/allNews',
+    name: 'NewsForCategory',
+    component: () => import('../views/NewsForCategory.vue'),
+    meta: {
+      authRequired: true
+    }
+  },
+  {
+    path: '/editNews',
+    name: 'EditNews',
+    component: () => import('../views/EditNews.vue'),
+    meta: {
+      authRequired: true
+    }
+  },
+  {
+    path: '/addNews',
+    name: 'AddNews',
+    component: () => import('../views/AddNews.vue'),
+    meta: {
+      authRequired: true
+    }
+  },
+  {
     path: '/editCategory',
     name: 'editCategory',
     component: () => import('../views/EditCategory.vue'),
