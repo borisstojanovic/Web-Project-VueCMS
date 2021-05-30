@@ -108,7 +108,11 @@ export default {
             })
         },
         selectCategory(){
-            this.news.categoryId = this.selectedCategory.id;
+            if(this.selectedCategory !== null && this.selectedCategory !== undefined){
+                this.news.categoryId = this.selectedCategory.id;
+            }else{
+                this.news.categoryId = 0;
+            }
         }
     }
 }

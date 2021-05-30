@@ -18,7 +18,7 @@
                     <tr v-for="user in users" :key="user.id" @click="selectedUser = user">
                         <th scope="row">{{ user.id }}</th>
                         <td>{{ user.type.toLowerCase() | capitalize }}</td>
-                        <td @click="selectedUser = users; findNews();" style="cursor: pointer;color: blue">{{ user.email}}</td>
+                        <td>{{ user.email}}</td>
                         <td>{{ user.firstName | capitalize }}</td>
                         <td>{{ user.lastName | capitalize }}</td>
                         <td>

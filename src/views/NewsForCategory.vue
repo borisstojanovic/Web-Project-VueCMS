@@ -16,7 +16,7 @@
                     <tbody>
                     <tr v-for="singleNews in sortedNews" :key="singleNews.id" @click="selectedNews = singleNews">
                         <th scope="row">{{ singleNews.id }}</th>
-                        <td @click="selectedNews = singleNews; findNews();" style="cursor: pointer;color: blue">{{ singleNews.title | capitalize }}</td>
+                        <td><a target="_" :href="linkToNews + singleNews.id">{{ singleNews.title | capitalize }}</a></td>
                         <td>{{ singleNews.text | shortText }}</td>
                         <td>{{formatDate(singleNews.createdAt)}}</td>
                         <td>
@@ -60,7 +60,8 @@ export default {
             page: 1,
             size: 2,
             count: 0,
-            sizes: [2, 4, 6]
+            sizes: [2, 4, 6],
+            linkToNews: "http://localhost:8086/#SingleNews/"
         }
     },
     mounted() {
@@ -113,6 +114,10 @@ export default {
         formatDate(createdAt){
             let date = new Date(createdAt);
             return date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear();
+        },
+        findNews(){
+            let link = "http://localhost:8086/#/SingleNews/" + this.selectedNews.id
+            this.$router.push(link)
         }
     },
     computed: {
