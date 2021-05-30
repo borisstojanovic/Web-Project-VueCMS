@@ -32,6 +32,30 @@ const routes = [
     }
   },
   {
+    path: '/users',
+    name: 'Users',
+    component: () => import('../views/Users.vue'),
+    meta: {
+      authRequired: true
+    }
+  },
+  {
+    path: '/editUser',
+    name: 'EditUser',
+    component: () => import('../views/EditUser.vue'),
+    meta: {
+      authRequired: true
+    }
+  },
+  {
+    path: '/addUser',
+    name: 'AddUser',
+    component: () => import('../views/AddUser.vue'),
+    meta: {
+      authRequired: true
+    }
+  },
+  {
     path: '/editNews',
     name: 'EditNews',
     component: () => import('../views/EditNews.vue'),

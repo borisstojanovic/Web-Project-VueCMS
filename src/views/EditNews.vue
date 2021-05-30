@@ -2,7 +2,7 @@
     <div class="container">
         <form @submit.prevent="edit">
             <NewsForm ref="newsForm" :news="news"></NewsForm>
-            <button type="submit" class="btn btn-primary mt-2">Add</button>
+            <button type="submit" class="btn btn-primary mt-2">Edit</button>
         </form>
     </div>
 </template>
@@ -26,7 +26,6 @@ export default {
     },
     methods: {
         edit(){
-            console.log(this.news)
             if(this.news.array === undefined || this.news.array.length < 1){
                 //todo error
                 alert("Please select at least one tag");
@@ -43,7 +42,7 @@ export default {
                 id: this.news.id,
                 title: this.news.title,
                 text: this.news.text,
-                createdAt: new Date(),
+                createdAt: this.news.createdAt,
                 categoryId: this.news.categoryId,
                 userId: this.news.userId,
                 views: 0,

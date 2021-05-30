@@ -31,12 +31,12 @@ export default {
           email: this.email,
           password: this.password,
       }).then(response => {
-          console.log(response.data)
           localStorage.setItem('jwt', response.data.jwt);
           localStorage.setItem('user', JSON.stringify(response.data.user));
+          this.$root.$emit('logged', 'User logged')
           this.$router.push({name: 'Home'});
       }).catch(err => {
-          alert(err);
+          alert(err.response.data.message);
       });
     }
   },

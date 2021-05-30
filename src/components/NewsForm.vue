@@ -30,7 +30,7 @@
 
 <script>
 export default {
-    name: "CategoryForm",
+    name: "NewsForm",
     data(){
         return {
             message: "",
@@ -39,12 +39,16 @@ export default {
             user: {},
             selectedCategory: null,
             selectedTags: [],
+            tag: {
+                keyword: ""
+            }
         }
     },
     beforeMount() {
         if(this.news !== undefined && this.news.id !== undefined){
             this.$axios.get(`/api/tags/${this.news.id}`).then(response => {
                 this.selectedTags = response.data;
+                this.news.array = response.data;
             }).catch(err => {
                 if(err.response !== undefined){
                     alert(err.response.data.message);

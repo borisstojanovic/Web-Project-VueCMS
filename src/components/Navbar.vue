@@ -17,9 +17,12 @@
             <li class="nav-item">
                 <router-link to="/allNews" tag="a" class="nav-link" :class="{active: this.$router.currentRoute.name === 'NewsForCategory'}">News</router-link>
             </li>
+            <li class="nav-item" v-if="isAdmin">
+                <router-link to="/users" tag="a" class="nav-link" :class="{active: this.$router.currentRoute.name === 'Users'}">Users</router-link>
+            </li>
           </ul>
-            <div v-if="isUser" class="d-flex">
-                <router-link to="/" tag="a" class="nav-link" v-text="getUser.firstName  + ' ' + getUser.lastName"></router-link>
+            <div v-if="isLoggedIn" class="d-flex">
+                <router-link to="/" tag="a" class="nav-link" v-text="user.firstName  + ' ' + user.lastName"></router-link>
             </div>
           <form v-if="canLogout" class="d-flex" @submit.prevent="logout">
             <button class="btn btn-outline-secondary" type="submit">Logout</button>
@@ -36,26 +39,35 @@
 <script>
 export default {
   name: "Navbar",
+  data() {
+      return {
+          user: {},
+          isLoggedIn: false,
+          isAdmin: false
+      }
+  },
+  created () {
+     this.$root.$on('logged', () => {
+        this.user = JSON.parse(localStorage.getItem('user'));
+        this.isLoggedIn = true;
+        this.isAdmin = this.user !== undefined && this.user.type === 'ADMIN';
+     })
+  },
   computed: {
     canLogout() {
         return this.$route.name !== 'Login' && localStorage.getItem('jwt') !== null;
-
     },
     canLogin(){
         return this.$route.name !== 'Login' && localStorage.getItem('jwt') === null;
     },
-    isUser(){
-        return this.$route.name !== 'Login' && localStorage.getItem('user') !== null;
-    },
-    getUser(){
-        let user = JSON.parse(localStorage.getItem('user'))
-        return user
-    }
   },
   methods: {
     logout() {
       localStorage.removeItem('jwt');
-        localStorage.removeItem('user');
+      localStorage.removeItem('user');
+      this.user = {};
+      this.isAdmin = false;
+      this.isLoggedIn = false;
       this.$router.push({name: 'Login'});
     },
     login(){
