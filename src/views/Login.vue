@@ -32,6 +32,7 @@ export default {
           password: this.password,
       }).then(response => {
           localStorage.setItem('jwt', response.data.jwt);
+          console.log(response.data.user)
           localStorage.setItem('user', JSON.stringify(response.data.user));
           this.$root.$emit('logged', 'User logged')
           this.$router.push({name: 'Home'});

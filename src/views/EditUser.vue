@@ -38,7 +38,12 @@ export default {
                 status: true,
                 password: this.user.password
             }).then(response => {
-                this.user = response.data;
+                let newUser = response.data;
+                let currentUser = JSON.parse(localStorage.getItem('user'));
+                if(currentUser.id === newUser.id){
+                    localStorage.setItem('user', JSON.stringify(newUser));
+                    this.$root.$emit("logged", "User changed");
+                }
                 this.$router.push({name: "Users"});
             }).catch(err => {
                 this.message = err.response.data.message;

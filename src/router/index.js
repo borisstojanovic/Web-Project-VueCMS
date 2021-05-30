@@ -36,7 +36,8 @@ const routes = [
     name: 'Users',
     component: () => import('../views/Users.vue'),
     meta: {
-      authRequired: true
+      authRequired: true,
+      adminRequired: true
     }
   },
   {
@@ -44,7 +45,8 @@ const routes = [
     name: 'EditUser',
     component: () => import('../views/EditUser.vue'),
     meta: {
-      authRequired: true
+      authRequired: true,
+      adminRequired: true
     }
   },
   {
@@ -52,7 +54,8 @@ const routes = [
     name: 'AddUser',
     component: () => import('../views/AddUser.vue'),
     meta: {
-      authRequired: true
+      authRequired: true,
+      adminRequired: true
     }
   },
   {
@@ -106,6 +109,19 @@ router.beforeEach((to, from, next) => {
     const expDate = new Date(payload.exp * 1000);
     if (expDate < new Date()) {
       next({name: 'Login'});
+      return;
+    }
+  }
+  if (to.meta.adminRequired){
+    const user = JSON.parse(localStorage.getItem("user"));
+    if(!user){
+      next({name: 'Login'});
+      return;
+    }
+
+    const type = user.type;
+    if(type !== 'ADMIN'){
+      next({name: 'Home'})
       return;
     }
   }
