@@ -17,11 +17,11 @@
             <li class="nav-item">
                 <router-link to="/allNews" tag="a" class="nav-link" :class="{active: this.$router.currentRoute.name === 'NewsForCategory'}">News</router-link>
             </li>
-            <li class="nav-item" v-if="isAdmin">
+            <li class="nav-item" v-if="user && user.type === 'ADMIN'">
                 <router-link to="/users" tag="a" class="nav-link" :class="{active: this.$router.currentRoute.name === 'Users'}">Users</router-link>
             </li>
           </ul>
-            <div v-if="isLoggedIn" class="d-flex">
+            <div v-if="user !== null" class="d-flex">
                 <router-link to="/" tag="a" class="nav-link" v-text="user.firstName  + ' ' + user.lastName"></router-link>
             </div>
           <form v-if="canLogout" class="d-flex" @submit.prevent="logout">
@@ -41,16 +41,14 @@ export default {
   name: "Navbar",
   data() {
       return {
-          user: {},
-          isLoggedIn: false,
-          isAdmin: false
+          user: JSON.parse(localStorage.getItem('user')),
       }
   },
   created () {
      this.$root.$on('logged', () => {
         this.user = JSON.parse(localStorage.getItem('user'));
         this.isLoggedIn = true;
-        this.isAdmin = this.user !== undefined && this.user.type === 'ADMIN';
+        this.isAdmin = this.user && this.user.type === 'ADMIN';
      })
   },
   computed: {
@@ -65,9 +63,7 @@ export default {
     logout() {
       localStorage.removeItem('jwt');
       localStorage.removeItem('user');
-      this.user = {};
-      this.isAdmin = false;
-      this.isLoggedIn = false;
+      this.user = null;
       this.$router.push({name: 'Login'});
     },
     login(){

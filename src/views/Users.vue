@@ -23,7 +23,8 @@
                         <td>{{ user.lastName | capitalize }}</td>
                         <td>
                             <button class="btn btn-primary" @click="selectedUser = user; editUser();">Edit</button>
-                            <button class="btn btn-secondary" @click="selectedUser = user; toggleUser();">Toggle</button>
+                            <button v-if="user.status" class="btn btn-danger" @click="selectedUser = user; toggleUser();">Deactivate</button>
+                            <button v-if="!user.status" class="btn btn-secondary" @click="selectedUser = user; toggleUser();">Activate</button>
                         </td>
                     </tr>
                     </tbody>
@@ -87,9 +88,13 @@ export default {
             this.$axios.get('/api/users/page', {params: {
                     start: this.page-1,
                     size: this.size
-                }}).then((response) => {
+                }}
+                ).then((response) => {
                 this.count = response.data.count;
                 this.users = response.data.data;
+            }).catch(err => {
+                console.log(err);
+                this.$router.push({name: "Home"});
             });
         },
         addUser(){
