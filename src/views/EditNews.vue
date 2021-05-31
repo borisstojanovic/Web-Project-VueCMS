@@ -45,7 +45,7 @@ export default {
                 createdAt: this.news.createdAt,
                 categoryId: this.news.categoryId,
                 userId: this.news.userId,
-                views: 0,
+                views: this.news.views,
                 tags: this.news.array
             }).then(response => {
                 this.news = response.data;
