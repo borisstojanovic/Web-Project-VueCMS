@@ -70,7 +70,7 @@ export default {
         editUser() {
             this.$router.push({
                 name: "EditUser",
-                params: { user: this.selectedUser }
+                params: { email: this.selectedUser.email }
             });
         },
         toggleUser(){

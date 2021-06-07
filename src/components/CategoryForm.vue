@@ -1,9 +1,11 @@
 <template>
-    <div>
+    <div v-if="!loading">
+        <div class="text-start">
+            <h5 style="color: red;">{{errMessage}}</h5>
+        </div>
         <div class="form-group">
             <label for="name">Name</label>
             <input v-model="category.name" required type="text" class="form-control" id="name" aria-describedby="textHelp" placeholder="Enter name">
-            <small style="color: red">{{errMessage}}</small>
         </div>
         <div class="form-group">
             <label for="description">Description</label>
@@ -17,15 +19,12 @@ export default {
     name: "CategoryForm",
     data(){
         return {
-            message: ""
+            message: "",
+            loading: true,
+            category: {}
         }
     },
-    props: {
-        category: {
-            type: Object,
-            required: true,
-        }
-    },
+
     computed: {
         errMessage(){
             return this.message;
@@ -34,6 +33,10 @@ export default {
     methods: {
         setMessage: function (message){
             this.message = message;
+        },
+        setCategory(category){
+            this.category = category;
+            this.loading = false;
         }
     }
 }

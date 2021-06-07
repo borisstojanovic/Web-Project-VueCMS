@@ -74,7 +74,7 @@ export default {
         editNews() {
             this.$router.push({
                 name: "EditNews",
-                params: { news: this.selectedNews }
+                params: { newsId: this.selectedNews.id }
             });
         },
         deleteNews(){

@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <form @submit.prevent="add">
-            <NewsForm ref="newsForm" :news="news"></NewsForm>
+            <NewsForm ref="newsForm"></NewsForm>
             <button type="submit" class="btn btn-primary mt-2">Add</button>
         </form>
     </div>
@@ -17,6 +17,9 @@ export default {
         return {
             news: {},
         }
+    },
+    mounted() {
+        this.$refs.newsForm.setNews(this.news);
     },
     methods: {
         add(){

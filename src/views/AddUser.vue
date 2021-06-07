@@ -19,6 +19,9 @@ export default {
             message: ""
         }
     },
+    mounted() {
+        this.$refs.userForm.setUser(this.user);
+    },
     methods: {
         add(){
             if(this.user.password !== this.user.password2){

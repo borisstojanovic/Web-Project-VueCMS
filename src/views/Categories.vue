@@ -67,7 +67,7 @@ export default {
         editCategory() {
             this.$router.push({
                 name: "editCategory",
-                params: { category: this.selectedCategory }
+                params: { categoryId: this.selectedCategory.id }
             });
         },
         deleteCategory(){

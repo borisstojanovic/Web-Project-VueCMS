@@ -15,12 +15,20 @@ export default {
     components: {CategoryForm},
     data() {
         return {
+            categoryId: 0,
             category: {},
             message: ""
         }
     },
-    mounted() {
-        this.category = this.$route.params.category;
+    beforeMount() {
+        this.categoryId = this.$route.params.categoryId;
+        this.$axios.get(`/api/categories/find/${this.categoryId}`).then(response => {
+            this.category = response.data;
+            this.$refs.categoryForm.setCategory(this.category);
+        }).catch(err => {
+            alert(err.message);
+        })
+
     },
     methods: {
         edit(){

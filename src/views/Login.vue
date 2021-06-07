@@ -4,14 +4,16 @@
     <form @submit.prevent="login">
       <div class="form-group">
         <label for="email">Email</label>
-        <input v-model="email" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+        <input required v-model="email" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Password</label>
-        <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <input required v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
       </div>
       <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        <br>
+        <h5 style="color: red">{{message}}</h5>
     </form>
   </div>
 </template>
@@ -23,6 +25,7 @@ export default {
     return {
       email: '',
       password: '',
+      message: '',
     }
   },
   methods: {
@@ -37,7 +40,7 @@ export default {
           this.$root.$emit('logged', 'User logged')
           this.$router.push({name: 'Home'});
       }).catch(err => {
-          alert(err.response.data.message);
+          this.message = err.response.data.message;
       });
     }
   },

@@ -1,9 +1,11 @@
 <template>
-    <div>
+    <div v-if="!loading">
+        <div class="text-start">
+            <h5 style="color: red;">{{message}}</h5>
+        </div>
         <div class="form-group">
             <label for="email">Email</label>
             <input v-model="user.email" required type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter Email">
-            <small style="color: red">{{errMessage}}</small>
         </div>
         <div class="form-group">
             <label for="firstName">First Name</label>
@@ -37,16 +39,13 @@ export default {
     name: "UserForm",
     data(){
         return {
+            loading: true,
+            userId: 0,
+            user: {},
             passwordError: "",
             message: "",
             typeError: "",
             types: ["ADMIN", "CREATOR"]
-        }
-    },
-    props: {
-        user: {
-            type: Object,
-            required: true,
         }
     },
     computed: {
@@ -70,6 +69,10 @@ export default {
         setTypeErrorMessage(message){
             this.typeError = message;
         },
+        setUser(user){
+            this.user = user;
+            this.loading = false;
+        }
     }
 }
 </script>

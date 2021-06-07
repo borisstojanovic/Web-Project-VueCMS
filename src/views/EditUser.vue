@@ -15,13 +15,23 @@ export default {
     components: {UserForm},
     data() {
         return {
+            email: 0,
             user: {},
             message: ""
         }
     },
-    mounted() {
-        this.user = this.$route.params.user;
-        this.user.isEdit = true;
+    beforeMount() {
+        this.email = this.$route.params.email;
+        this.$axios.get(`/api/users`, { params: {
+            email: this.email
+            }}).then(response => {
+            this.user = response.data;
+            this.user.isEdit = true;
+            this.$refs.userForm.setUser(this.user);
+        }).catch(err => {
+            alert(err.message)
+        })
+
     },
     methods: {
         edit(){

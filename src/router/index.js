@@ -41,8 +41,9 @@ const routes = [
     }
   },
   {
-    path: '/editUser',
+    path: '/editUser/:email',
     name: 'EditUser',
+    params: true,
     component: () => import('../views/EditUser.vue'),
     meta: {
       authRequired: true,
@@ -59,8 +60,9 @@ const routes = [
     }
   },
   {
-    path: '/editNews',
+    path: '/editNews/:newsId',
     name: 'EditNews',
+    params:true,
     component: () => import('../views/EditNews.vue'),
     meta: {
       authRequired: true
@@ -75,8 +77,9 @@ const routes = [
     }
   },
   {
-    path: '/editCategory',
+    path: '/editCategory/:categoryId',
     name: 'editCategory',
+    params: true,
     component: () => import('../views/EditCategory.vue'),
     meta: {
       authRequired: true

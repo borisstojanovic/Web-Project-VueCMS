@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <form @submit.prevent="add">
-            <CategoryForm ref="categoryForm" :category="category"></CategoryForm>
+            <CategoryForm ref="categoryForm"></CategoryForm>
             <button type="submit" class="btn btn-primary mt-2">Add</button>
         </form>
     </div>
@@ -17,6 +17,9 @@ export default {
         return {
             category: {},
         }
+    },
+    mounted() {
+        this.$refs.categoryForm.setCategory(this.category);
     },
     methods: {
         add(){

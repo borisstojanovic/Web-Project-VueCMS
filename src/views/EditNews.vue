@@ -16,11 +16,19 @@ export default {
     data() {
         return {
             news: {},
+            newsId: 0
         }
     },
     beforeMount() {
-        this.news = this.$route.params.news;
-        if(this.news === undefined){
+        this.newsId = this.$route.params.newsId;
+        this.$axios.get(`/api/news/${this.newsId}`).then(response => {
+            this.news = response.data;
+            this.$refs.newsForm.setNews(this.news);
+        }).catch(err=>{
+            alert(err.message)
+            this.$router.push({name: "NewsForCategory"});
+        })
+        if(this.news === undefined || this.news === null){
             this.$router.push({name: "NewsForCategory"});
         }
     },
@@ -29,12 +37,14 @@ export default {
             if(this.news.array === undefined || this.news.array.length < 1){
                 //todo error
                 alert("Please select at least one tag");
+                this.$refs.newsForm.setMessage("Please select at least one tag");
                 return ;
             }
 
             if(this.news.categoryId === undefined || this.news.categoryId <= 0){
                 //todo error
                 alert("Please select a category");
+                this.$refs.newsForm.setMessage("Please select at least one tag");
                 return;
             }
 
@@ -53,7 +63,7 @@ export default {
             }).catch(err => {
                 this.$refs.newsForm.setMessage(err.response.data.message);
             });
-        }
+        },
     },
 }
 </script>
